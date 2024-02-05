@@ -10,7 +10,7 @@ const RegisterUser = () => {
 		email: '',
 		userName: '',
 		active: true,
-		sex: true
+		sex: 'male'
 	});
 	console.log(newUser);
 	return (
@@ -52,13 +52,19 @@ const RegisterUser = () => {
 					<input
 						type='radio'
 						name='sex'
-						onChange={() => setNewUser({ ...newUser, sex: true })}
+						value='male'
+						onChange={event =>
+							setNewUser({ ...newUser, sex: event.target.value })
+						}
 					/>
-					<label htmlFor='active'>female</label>
+					<label htmlFor='sex'>female</label>
 					<input
 						type='radio'
 						name='sex'
-						onChange={() => setNewUser({ ...newUser, sex: false })}
+						value='female'
+						onChange={event =>
+							setNewUser({ ...newUser, sex: event.target.value })
+						}
 					/>
 				</div>
 
@@ -67,6 +73,7 @@ const RegisterUser = () => {
 					<input
 						type='radio'
 						name='active'
+						value='male'
 						onChange={() => setNewUser({ ...newUser, active: true })}
 					/>
 					<label htmlFor='active'>Idle</label>
