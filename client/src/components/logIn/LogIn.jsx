@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { StyledContainer, StyledForm, StyledLink } from './styles';
 
 const LogIn = () => {
@@ -14,6 +13,7 @@ const LogIn = () => {
 					<label htmlFor='pasword'>Pasword</label>
 					<input type='text' name='pasword' />
 				</div>
+				<button>Submit</button>
 			</StyledForm>
 			<div>
 				<StyledLink to='/mainPlace'>singIn</StyledLink>
@@ -21,4 +21,5 @@ const LogIn = () => {
 		</StyledContainer>
 	);
 };
+
 export default LogIn;

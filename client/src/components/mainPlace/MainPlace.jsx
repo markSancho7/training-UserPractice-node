@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import {
 	StyledAside,
 	StyledContainer,
@@ -6,8 +6,17 @@ import {
 	StyledLink,
 	StyledLogOutContainer
 } from './styles';
+import { getData } from '../../utils/api';
+import { URLS } from '../../constants/urls';
+import { useNavigate } from 'react-router-dom';
 
 const MainPlace = () => {
+	const navigate = useNavigate();
+	const [users, setUsers] = useState([]);
+	useEffect(() => {
+		getAllUsers(setUsers);
+	}, []);
+	console.log(users);
 	return (
 		<>
 			<StyledContainer>
@@ -20,16 +29,31 @@ const MainPlace = () => {
 					<StyledLogOutContainer>
 						<StyledLink to='/'>logOut</StyledLink>
 					</StyledLogOutContainer>
-					<div>
-						<img src='' alt='' />
-						<p>Marcos Sancho</p>
-					</div>
-					<div>
-						<StyledLink to='/UserDetails'>Details</StyledLink>
-					</div>
+					{users.map(user => (
+						<div key={user._id}>
+							<p>{user.name}</p>
+							<div>
+								<button
+									onClick={() =>
+										navigate(
+											{ pathname: '/UserDetails' },
+											{ state: { userData: user } }
+										)
+									}
+								>
+									Details
+								</button>
+							</div>
+						</div>
+					))}
 				</StyledInfoContainer>
 			</StyledContainer>
 		</>
 	);
 };
+const getAllUsers = async setUsers => {
+	const data = await getData(URLS.API_USERS);
+	setUsers(data);
+};
+
 export default MainPlace;
