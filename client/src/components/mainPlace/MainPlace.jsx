@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const MainPlace = () => {
 	const navigate = useNavigate();
 	const [users, setUsers] = useState([]);
+	console.log('RENDER');
 	useEffect(() => {
 		getAllUsers(setUsers);
 	}, []);

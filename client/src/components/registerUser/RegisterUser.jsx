@@ -8,7 +8,9 @@ const RegisterUser = () => {
 	const [newUser, setNewUser] = useState({
 		name: '',
 		email: '',
-		sex: false
+		userName: '',
+		active: true,
+		sex: true
 	});
 	console.log(newUser);
 	return (
@@ -36,9 +38,43 @@ const RegisterUser = () => {
 					/>
 				</div>
 				<div>
-					<label htmlFor='state'>State</label>
-					<input type='radio' name='sex' value='man' />
-					<input type='radio' name='sex' value='woman' />
+					<label htmlFor='userName'>UserName</label>
+					<input
+						type='text'
+						name='userName'
+						onChange={event =>
+							registerNewUser(event.target, newUser, setNewUser)
+						}
+					/>
+				</div>
+				<div>
+					<label htmlFor='sex'>male</label>
+					<input
+						type='radio'
+						name='sex'
+						onChange={() => setNewUser({ ...newUser, sex: true })}
+					/>
+					<label htmlFor='active'>female</label>
+					<input
+						type='radio'
+						name='sex'
+						onChange={() => setNewUser({ ...newUser, sex: false })}
+					/>
+				</div>
+
+				<div>
+					<label htmlFor='active'>Active</label>
+					<input
+						type='radio'
+						name='active'
+						onChange={() => setNewUser({ ...newUser, active: true })}
+					/>
+					<label htmlFor='active'>Idle</label>
+					<input
+						type='radio'
+						name='active'
+						onChange={() => setNewUser({ ...newUser, active: false })}
+					/>
 				</div>
 				<button type='submit' onClick={() => finalUser(newUser)}>
 					Submit
@@ -52,6 +88,7 @@ const handleSubmit = event => {
 	event.preventDefault();
 };
 const finalUser = async newUser => {
+	console.log(newUser);
 	await postData(`${URLS.API_USERS}`, newUser);
 };
 
