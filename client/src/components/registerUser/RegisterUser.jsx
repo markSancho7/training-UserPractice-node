@@ -1,5 +1,12 @@
 import { Link } from 'react-router-dom';
-import { StyledContainer, StyledLink } from './styles';
+import {
+	StyledButtonChangeImg,
+	StyledButtonClose,
+	StyledButtonSubmit,
+	StyledContainer,
+	StyledContainerImg,
+	StyledLink
+} from './styles';
 import { useState } from 'react';
 import { postData } from '../../utils/api';
 import { URLS } from '../../constants/urls';
@@ -19,8 +26,8 @@ const RegisterUser = ({ closeModal, children }) => {
 	console.log(newUser);
 	return createPortal(
 		<StyledContainer>
+			<StyledButtonClose onClick={closeModal}>X</StyledButtonClose>
 			<p>REGISTER USER</p>
-			<button onClick={closeModal}>X</button>
 			<form onSubmit={event => handleSubmit(event, newUser)}>
 				<div>
 					<label htmlFor='name'>Name</label>
@@ -62,12 +69,12 @@ const RegisterUser = ({ closeModal, children }) => {
 						}
 					/>
 				</div>
-				<div>
+				<StyledContainerImg>
 					<img src={newUser.routeImg} alt='' />
-					<button onClick={() => changeImg(newUser, setNewUser)}>
+					<StyledButtonChangeImg onClick={() => changeImg(newUser, setNewUser)}>
 						Change img
-					</button>
-				</div>
+					</StyledButtonChangeImg>
+				</StyledContainerImg>
 				<div>
 					<label htmlFor='sex'>male</label>
 					<input
@@ -104,9 +111,9 @@ const RegisterUser = ({ closeModal, children }) => {
 						onChange={() => setNewUser({ ...newUser, active: false })}
 					/>
 				</div>
-				<button type='submit' onClick={() => finalUser(newUser)}>
+				<StyledButtonSubmit type='submit' onClick={() => finalUser(newUser)}>
 					Submit
-				</button>
+				</StyledButtonSubmit>
 			</form>
 		</StyledContainer>,
 		document.getElementById('modalRegister')

@@ -19,12 +19,23 @@ const StyledContainer = styled.div`
 const StyledLink = styled(Link)`
 	margin-bottom: 10px;
 	margin-top: 10px;
-	padding: 10px;
+	padding: 5px 10px;
+
+	border: solid 1px white;
+`;
+const StyledButtonSubmit = styled.button`
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 5px 10px;
+	background-color: black;
+	color: white;
+	font-family: 'Space Mono', monospace;
+	font-size: 20px;
 	border: solid 1px white;
 `;
 const StyledForm = styled.form`
-	margin-top: 10px;
-	margin-bottom: 30px;
+	margin-top: 30px;
+	margin-bottom: 60px;
 `;
 
-export { StyledLink, StyledContainer, StyledForm };
+export { StyledLink, StyledContainer, StyledForm, StyledButtonSubmit };

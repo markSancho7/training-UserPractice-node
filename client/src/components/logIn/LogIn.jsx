@@ -1,4 +1,9 @@
-import { StyledContainer, StyledForm, StyledLink } from './styles';
+import {
+	StyledButtonSubmit,
+	StyledContainer,
+	StyledForm,
+	StyledLink
+} from './styles';
 
 const LogIn = () => {
 	return (
@@ -13,7 +18,7 @@ const LogIn = () => {
 					<label htmlFor='pasword'>Pasword</label>
 					<input type='text' name='pasword' />
 				</div>
-				<button>Submit</button>
+				<StyledButtonSubmit>Submit</StyledButtonSubmit>
 			</StyledForm>
 			<div>
 				<StyledLink to='/mainPlace'>singIn</StyledLink>
