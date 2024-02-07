@@ -1,12 +1,18 @@
+import { StyledContainer, StyledButton } from './styles';
+import { useState } from 'react';
+import RegisterUser from '../registerUser/RegisterUser';
 import { Link } from 'react-router-dom';
-import { StyledContainer, StyledLink } from './styles';
 
 const Main = () => {
+	const [content, setContent] = useState();
+	console.log(content);
 	return (
 		<StyledContainer>
-			<StyledLink to='/'>Home</StyledLink>
-			<StyledLink to='/registerUser'>RegisterUser</StyledLink>
-			<StyledLink to='/logIn'>LogIn</StyledLink>
+			<Link to='/logIn'>LogIn</Link>
+			<StyledButton onClick={() => setContent('ir a la modal')}>
+				register
+			</StyledButton>
+			<RegisterUser closeModal={() => setContent()}>{content}</RegisterUser>
 		</StyledContainer>
 	);
 };

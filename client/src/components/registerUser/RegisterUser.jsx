@@ -3,19 +3,24 @@ import { StyledContainer, StyledLink } from './styles';
 import { useState } from 'react';
 import { postData } from '../../utils/api';
 import { URLS } from '../../constants/urls';
+import { createPortal } from 'react-dom';
 
-const RegisterUser = () => {
+const RegisterUser = ({ closeModal, children }) => {
+	if (!children) return;
 	const [newUser, setNewUser] = useState({
+		routeImg: '',
 		name: '',
 		email: '',
+		pasword: '',
 		userName: '',
 		active: true,
-		sex: 'male'
+		sex: 'men'
 	});
 	console.log(newUser);
-	return (
+	return createPortal(
 		<StyledContainer>
-			<StyledLink to='/'>Home</StyledLink>
+			<p>REGISTER USER</p>
+			<button onClick={closeModal}>X</button>
 			<form onSubmit={event => handleSubmit(event, newUser)}>
 				<div>
 					<label htmlFor='name'>Name</label>
@@ -38,6 +43,16 @@ const RegisterUser = () => {
 					/>
 				</div>
 				<div>
+					<label htmlFor='pasword'>Pasword</label>
+					<input
+						type='text'
+						name='pasword'
+						onChange={event =>
+							registerNewUser(event.target, newUser, setNewUser)
+						}
+					/>
+				</div>
+				<div>
 					<label htmlFor='userName'>UserName</label>
 					<input
 						type='text'
@@ -48,11 +63,17 @@ const RegisterUser = () => {
 					/>
 				</div>
 				<div>
+					<img src={newUser.routeImg} alt='' />
+					<button onClick={() => changeImg(newUser, setNewUser)}>
+						Change img
+					</button>
+				</div>
+				<div>
 					<label htmlFor='sex'>male</label>
 					<input
 						type='radio'
 						name='sex'
-						value='male'
+						value='men'
 						onChange={event =>
 							setNewUser({ ...newUser, sex: event.target.value })
 						}
@@ -61,7 +82,7 @@ const RegisterUser = () => {
 					<input
 						type='radio'
 						name='sex'
-						value='female'
+						value='women'
 						onChange={event =>
 							setNewUser({ ...newUser, sex: event.target.value })
 						}
@@ -87,10 +108,16 @@ const RegisterUser = () => {
 					Submit
 				</button>
 			</form>
-		</StyledContainer>
+		</StyledContainer>,
+		document.getElementById('modalRegister')
 	);
 };
-
+const changeImg = (newUser, setNewUser) => {
+	const newNumber = Math.floor(Math.random() * 101);
+	const route = `https://randomuser.me/api/portraits/med/${newUser.sex}/${newNumber}.jpg`;
+	const createNewUser = { ...newUser, routeImg: route };
+	setNewUser(createNewUser);
+};
 const handleSubmit = event => {
 	event.preventDefault();
 };

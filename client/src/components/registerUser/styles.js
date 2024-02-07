@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const StyledContainer = styled.div`
+	position: fixed;
+	top: 0px;
+	left: 520px;
 	display: flex;
 	flex-direction: column;
 	text-align: center;

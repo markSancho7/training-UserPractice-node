@@ -3,44 +3,42 @@ import { StyledContainer, StyledContainerX } from './styles';
 import { deleteData, patchData } from '../../utils/api';
 import { URLS } from '../../constants/urls';
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 
-const UserDetails = () => {
-	const navigate = useNavigate();
-	const location = useLocation();
-	const userData = location.state.userData;
-	console.log(userData);
+const UserDetails = ({ user, closeModal, children }) => {
+	if (!children) return;
 	const [currentUser, setCurrentUser] = useState({
-		name: userData.name,
-		email: userData.email,
-		userName: userData.userName,
-		active: userData.active
+		routeImg: user.routeImg,
+		name: user.name,
+		email: user.email,
+		userName: user.userName,
+		active: user.active,
+		sex: user.sex
 	});
-	console.log(currentUser, userData);
-	return (
+	console.log(currentUser);
+	return createPortal(
 		<>
 			<StyledContainer>
 				<StyledContainerX>
-					<Link to='/mainPlace'>X</Link>
+					<button onClick={closeModal}>X</button>
 				</StyledContainerX>
 
 				<div>
-					<img
-						src='https://randomuser.me/api/portraits/med/men/75.jpg'
-						alt=''
-					/>
+					<img src={currentUser.routeImg} alt='' />
 					<p>{currentUser.name}</p>
 					<p>{currentUser.email}</p>
 					<p>{currentUser.userName}</p>
 					<p>{currentUser.active}</p>
+					<p>{currentUser.sex}</p>
 				</div>
 				<div>
-					<form onSubmit={event => handleSubmit(event, currentUser, userData)}>
+					<form onSubmit={event => handleSubmit(event, currentUser, user)}>
 						<div>
 							<label htmlFor='name'>Name</label>
 							<input
 								type='text'
 								name='name'
-								defaultValue={userData.name}
+								defaultValue={user.name}
 								onChange={event =>
 									changePropsUser(event.target, currentUser, setCurrentUser)
 								}
@@ -51,7 +49,18 @@ const UserDetails = () => {
 							<input
 								type='text'
 								name='email'
-								defaultValue={userData.email}
+								defaultValue={user.email}
+								onChange={event =>
+									changePropsUser(event.target, currentUser, setCurrentUser)
+								}
+							/>
+						</div>
+						<div>
+							<label htmlFor='userName'>User name</label>
+							<input
+								type='text'
+								name='userName'
+								defaultValue={user.userName}
 								onChange={event =>
 									changePropsUser(event.target, currentUser, setCurrentUser)
 								}
@@ -59,7 +68,7 @@ const UserDetails = () => {
 						</div>
 						<button
 							onClick={() => {
-								updateUser(currentUser, userData);
+								updateUser(currentUser, user);
 							}}
 							type='submit'
 						>
@@ -67,24 +76,29 @@ const UserDetails = () => {
 						</button>
 					</form>
 					<Link to='/mainPlace'>
-						<button onClick={() => userDelete(userData, navigate)}>
+						<button
+							onClick={() => {
+								userDelete(user);
+							}}
+						>
 							Delete
 						</button>
 					</Link>
 				</div>
 			</StyledContainer>
-		</>
+		</>,
+		document.getElementById('modalDetails')
 	);
 };
 
-const updateUser = async (currentUser, userData) => {
-	console.log(userData);
+const updateUser = async (currentUser, user) => {
+	console.log(user);
 	console.log(currentUser);
-	await patchData(`${URLS.API_USERS}/${userData._id}`, currentUser);
+	await patchData(`${URLS.API_USERS}/${user._id}`, currentUser);
 };
-const handleSubmit = async (event, currentUser, userData) => {
+const handleSubmit = async (event, currentUser, user) => {
 	event.preventDefault();
-	await updateUser(currentUser, userData);
+	await updateUser(currentUser, user);
 };
 const changePropsUser = (newValue, currentUser, setCurrentUser) => {
 	const { name, value } = newValue;
@@ -92,10 +106,9 @@ const changePropsUser = (newValue, currentUser, setCurrentUser) => {
 	setCurrentUser(updatedName);
 };
 
-const userDelete = async (userData, navigate) => {
-	await deleteData(`${URLS.API_USERS}/${userData._id}`);
-	navigate('/');
-	console.log(userData);
+const userDelete = async user => {
+	await deleteData(`${URLS.API_USERS}/${user._id}`);
+	console.log(user);
 };
 
 export default UserDetails;

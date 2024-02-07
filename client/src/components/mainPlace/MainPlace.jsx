@@ -8,12 +8,13 @@ import {
 } from './styles';
 import { getData } from '../../utils/api';
 import { URLS } from '../../constants/urls';
-import { useNavigate } from 'react-router-dom';
+import UserDetails from '../userDetails/UserDetails';
 
 const MainPlace = () => {
-	const navigate = useNavigate();
+	const [content, setContent] = useState();
 	const [users, setUsers] = useState([]);
-	console.log('RENDER');
+	console.log(content);
+
 	useEffect(() => {
 		getAllUsers(setUsers);
 	}, []);
@@ -34,16 +35,12 @@ const MainPlace = () => {
 						<div key={user._id}>
 							<p>{user.name}</p>
 							<div>
-								<button
-									onClick={() =>
-										navigate(
-											{ pathname: '/UserDetails' },
-											{ state: { userData: user } }
-										)
-									}
-								>
+								<button onClick={() => setContent('ir a la modal')}>
 									Details
 								</button>
+								<UserDetails user={user} closeModal={() => setContent()}>
+									{content}
+								</UserDetails>
 							</div>
 						</div>
 					))}

@@ -22,10 +22,19 @@ usersController.getUserById = async (req, res) => {
 };
 
 usersController.createUser = async (req, res) => {
-  const { name, email, userName, active } = req.body;
-  if (!name || !email || !userName) return res.status(400).send({ error: 'bad request' });
+  const { name, email, userName, password, active, sex, routeImg } = req.body;
+  if (!name || !email || !userName)
+    return res.status(400).send({ error: 'bad request' });
   try {
-    const newUser = new UserModel({ name, email, userName, active });
+    const newUser = new UserModel({
+      name,
+      email,
+      userName,
+      password,
+      active,
+      sex,
+      routeImg,
+    });
     await newUser.save();
 
     const allUsers = await UserModel.find();

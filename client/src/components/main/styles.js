@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const StyledContainer = styled.div`
@@ -16,11 +15,15 @@ const StyledContainer = styled.div`
 	padding: 30px;
 `;
 
-const StyledLink = styled(Link)`
-	margin-bottom: 10px;
+const StyledButton = styled.button`
+	margin-bottom: 20px;
 	margin-top: 10px;
 	padding-block: 10px;
+	background-color: black;
+	color: white;
+	font-family: 'Space Mono', monospace;
+	font-size: 20px;
 	border: solid 1px white;
 `;
 
-export { StyledContainer, StyledLink };
+export { StyledContainer, StyledButton };
