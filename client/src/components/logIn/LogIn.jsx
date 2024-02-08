@@ -9,7 +9,7 @@ const LogIn = () => {
 	return (
 		<StyledContainer>
 			<StyledLink to='/'>Home</StyledLink>
-			<StyledForm>
+			<StyledForm onSubmit={event => handleSubmit(event)}>
 				<div>
 					<label htmlFor='name'>Name</label>
 					<input type='text' name='name' />
@@ -25,6 +25,10 @@ const LogIn = () => {
 			</div>
 		</StyledContainer>
 	);
+};
+
+const handleSubmit = event => {
+	event.preventDefault();
 };
 
 export default LogIn;
