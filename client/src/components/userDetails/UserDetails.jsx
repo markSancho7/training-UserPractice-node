@@ -92,8 +92,6 @@ const UserDetails = ({ user, closeModal, children }) => {
 };
 
 const updateUser = async (currentUser, user) => {
-	console.log(user);
-	console.log(currentUser);
 	await patchData(`${URLS.API_USERS}/${user._id}`, currentUser);
 };
 const handleSubmit = async (event, currentUser, user) => {
